@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Fonts/Amatic-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://dialog-background.png" type="Texture" id=2]
+[ext_resource path="res://dialog.gd" type="Script" id=3]
+[ext_resource path="res://Fonts/AmaticSC-Regular.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 4 )
+
+[node name="Dialog" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 4.055
+anchor_top = 4.484
+anchor_right = 4.055
+anchor_bottom = 4.484
+margin_left = -157.2
+margin_top = -58.36
+margin_right = 1083.8
+margin_bottom = 523.64
+rect_scale = Vector2( 0.1, 0.1 )
+rect_clip_content = true
+texture = ExtResource( 2 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 13.2034
+margin_top = 126.0
+margin_right = 122.203
+margin_bottom = 176.0
+custom_fonts/bold_font = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 2 )
+custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/selection_color = Color( 0, 0, 0, 1 )
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
