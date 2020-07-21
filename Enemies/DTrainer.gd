@@ -5,13 +5,20 @@ var velocity = Vector2.ZERO
 export var MAX_SPEED = 40
 export var ACCELERATION = 500
 export var ATTACK_RANGE = 35
+export var SPELL_RANGE = 150
 export var FRICTION = 500
+export var MAX_THIA_FIVES = 1
+var CURRENT_THIA_FIVES = 0
+var player_in_detection_zone = false
+
 enum {
 	MOVE,
 	SPELL,
 	ATTACK,
 	IDLE
 }
+
+const ThaiFive = preload("res://Enemies/thaiFive.tscn")
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -27,7 +34,7 @@ func _physics_process(delta):
 		MOVE:
 			move_state(delta)
 		SPELL:
-			spell_state()
+			spell_state(delta)
 		ATTACK:
 			attack_state(delta)
 		IDLE:
@@ -48,11 +55,22 @@ func move_state(delta):
 func accelerate_towards_point(point,delta):
 	var direction = global_position.direction_to(point)
 	velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta )
-	if(global_position.distance_to(point) <= ATTACK_RANGE):
-		state = ATTACK
+	if(global_position.distance_to(point) <= SPELL_RANGE):
+		state = SPELL
 	
-func spell_state():
-	animationState.travel("Spell")
+func spell_state(delta):
+	if player_in_detection_zone:
+		if(global_position.distance_to(playerDetectionZone.player.global_position) > ATTACK_RANGE + 10):
+			state = MOVE
+		else:
+			velocity = velocity.move_toward(Vector2.ZERO * FRICTION, ACCELERATION * delta )
+			animationState.travel("Spell")
+
+func thai_five():
+	var thaiFive = ThaiFive.instance()
+	get_parent().add_child(thaiFive)
+	thaiFive.global_position = global_position
+	thaiFive.launch()
 	
 func attack_state(delta):
 	if(global_position.distance_to(playerDetectionZone.player.global_position) > ATTACK_RANGE + 10):
@@ -65,4 +83,8 @@ func idle_state():
 	animationState.travel("Idle")
 	
 func _on_PlayerDetectionZone_body_entered(_body):
+	player_in_detection_zone = true
 	state = MOVE
+
+func _on_PlayerDetectionZone_body_exited(body):
+	player_in_detection_zone = false

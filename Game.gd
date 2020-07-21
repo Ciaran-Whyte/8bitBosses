@@ -2,7 +2,7 @@ extends Node2D
 
 const LEVEL_PATH = "res://Levels/Level%d.tscn"
 
-var level_number:int = 0
+var level_number:int = 1
 var defeated_bosess = [0,0,0,0,0,0,0,0]
 
 func _ready():
