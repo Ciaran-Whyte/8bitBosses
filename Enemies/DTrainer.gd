@@ -5,7 +5,7 @@ var velocity = Vector2.ZERO
 export var MAX_SPEED = 40
 export var ACCELERATION = 500
 export var ATTACK_RANGE = 35
-export var SPELL_RANGE = 150
+export var SPELL_RANGE = 120
 export var FRICTION = 500
 export var MAX_THIA_FIVES = 1
 var CURRENT_THIA_FIVES = 0
@@ -60,7 +60,7 @@ func accelerate_towards_point(point,delta):
 	
 func spell_state(delta):
 	if player_in_detection_zone:
-		if(global_position.distance_to(playerDetectionZone.player.global_position) > ATTACK_RANGE + 10):
+		if(global_position.distance_to(playerDetectionZone.player.global_position) > SPELL_RANGE + 10) or Global.level_1_globals['CURRENT_THAI_FIVES'] == Global.level_1_globals['MAX_THAI_FIVES']:
 			state = MOVE
 		else:
 			velocity = velocity.move_toward(Vector2.ZERO * FRICTION, ACCELERATION * delta )
@@ -71,6 +71,7 @@ func thai_five():
 	get_parent().add_child(thaiFive)
 	thaiFive.global_position = global_position
 	thaiFive.launch()
+	Global.level_1_globals['CURRENT_THAI_FIVES'] += 1
 	
 func attack_state(delta):
 	if(global_position.distance_to(playerDetectionZone.player.global_position) > ATTACK_RANGE + 10):
@@ -86,5 +87,5 @@ func _on_PlayerDetectionZone_body_entered(_body):
 	player_in_detection_zone = true
 	state = MOVE
 
-func _on_PlayerDetectionZone_body_exited(body):
+func _on_PlayerDetectionZone_body_exited(_body):
 	player_in_detection_zone = false

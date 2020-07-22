@@ -771,7 +771,6 @@ hframes = 60
 frame = 36
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 rotation = -1.5708
 shape = SubResource( 2 )
 
@@ -803,7 +802,6 @@ parameters/Roll/blend_position = Vector2( 0, 0 )
 parameters/Run/blend_position = Vector2( 0, 0 )
 
 [node name="HitBoxPivot" type="Position2D" parent="."]
-visible = false
 position = Vector2( 0, -4 )
 rotation = 1.5708
 __meta__ = {
@@ -821,7 +819,6 @@ shape = SubResource( 47 )
 disabled = true
 
 [node name="HurtBox" parent="." instance=ExtResource( 5 )]
-visible = false
 collision_layer = 4
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]

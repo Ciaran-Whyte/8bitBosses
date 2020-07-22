@@ -17,10 +17,16 @@ func _physics_process(delta):
 	if player != null:
 		var target = ( player.global_position - self.global_position ).normalized()
 		velocity = velocity.move_toward(target * MAX_SPEED, ACCELERATION * delta )
-		move_and_collide(velocity)
+		var hit = move_and_collide(velocity)
+		if hit != null:
+			remove_thai_five()
 		
 func _on_PlayerDectionZone_body_entered(body):
 	player = body
 
 func _on_Timer_timeout():
+	remove_thai_five()
+
+func remove_thai_five():
 	call_deferred("queue_free")
+	Global.level_1_globals['CURRENT_THAI_FIVES'] -= 1

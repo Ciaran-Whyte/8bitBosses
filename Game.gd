@@ -5,10 +5,22 @@ const LEVEL_PATH = "res://Levels/Level%d.tscn"
 var level_number:int = 1
 var defeated_bosess = [0,0,0,0,0,0,0,0]
 
+var level_1_globals = {
+	"MAX_THAI_FIVES" : 1,
+	"CURRENT_THAI_FIVES": 0
+}
+
 func _ready():
 	call_deferred("init")
 
+func reset():
+	print("reload_current_scene")
+	PlayerStats.set_health(PlayerStats.max_health)
+	level_1_globals['CURRENT_THAI_FIVES'] = 0
+	load_level(1)
+
 func init():
+	PlayerStats.connect("no_health", self, "reset")
 	load_level(level_number)
 
 func load_level(num:int):
@@ -28,3 +40,11 @@ func get_level_number():
 
 func is_level_bossed_defeated():
 	return defeated_bosess[level_number] == 1
+
+
+
+
+
+
+
+
