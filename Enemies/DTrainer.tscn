@@ -1,9 +1,10 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://Enemies/Daire.png" type="Texture" id=1]
 [ext_resource path="res://Enemies/DTrainer.gd" type="Script" id=2]
 [ext_resource path="res://Enemies/PlayerDetectionZone.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/thaiFive.wav" type="AudioStream" id=4]
+[ext_resource path="res://Overlap/HurtBox.tscn" type="PackedScene" id=5]
 [ext_resource path="res://WhiteColour.shader" type="Shader" id=9]
 
 [sub_resource type="ShaderMaterial" id=1]
@@ -511,10 +512,12 @@ start_node = "Idle"
 [sub_resource type="CircleShape2D" id=47]
 radius = 173.63
 
+[sub_resource type="CapsuleShape2D" id=48]
+height = 20.241
+
 [node name="DTrainer" type="KinematicBody2D"]
 position = Vector2( -8, -10 )
 collision_layer = 16
-collision_mask = 2
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -565,7 +568,19 @@ shape = SubResource( 47 )
 
 [node name="ThaiFiveAttack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+
+[node name="HurtBox" parent="." instance=ExtResource( 5 )]
+collision_layer = 8
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource( 48 )
+
+[node name="SpellCoolDown" type="Timer" parent="."]
 [connection signal="body_entered" from="PlayerDetectionZone" to="." method="_on_PlayerDetectionZone_body_entered"]
 [connection signal="body_exited" from="PlayerDetectionZone" to="." method="_on_PlayerDetectionZone_body_exited"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="timeout" from="SpellCoolDown" to="." method="_on_SpellCoolDown_timeout"]
 
 [editable path="PlayerDetectionZone"]
+
+[editable path="HurtBox"]

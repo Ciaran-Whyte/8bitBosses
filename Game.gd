@@ -15,7 +15,8 @@ func _ready():
 
 func reset():
 	print("reload_current_scene")
-	PlayerStats.set_health(PlayerStats.max_health)
+	PlayerStats.reset()
+	BossStats.reset()
 	level_1_globals['CURRENT_THAI_FIVES'] = 0
 	load_level(1)
 

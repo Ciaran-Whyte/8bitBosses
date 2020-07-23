@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Fonts/AmaticSC-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Enemies/DaireFullHealth.png" type="Texture" id=2]
+[ext_resource path="res://Enemies/DaireEmptyHealth.png" type="Texture" id=3]
+[ext_resource path="res://UI/BossHealthUI.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 17
+font_data = ExtResource( 1 )
+
+[node name="BossHealthUI" type="Control"]
+margin_top = 0.398308
+margin_right = 158.0
+margin_bottom = 29.3983
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="HeartUIEmpty" type="TextureRect" parent="."]
+margin_right = 59.0
+margin_bottom = 12.0
+texture = ExtResource( 3 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeartUIFull" type="TextureRect" parent="."]
+margin_right = 154.0
+margin_bottom = 31.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 23.0
+margin_top = 4.0
+margin_right = 146.0
+margin_bottom = 24.0
+custom_fonts/normal_font = SubResource( 1 )
+text = "D-Trainer"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}

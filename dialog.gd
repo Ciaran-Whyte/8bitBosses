@@ -5,7 +5,7 @@ onready var richTextLabel = $RichTextLabel
 # Variables
 var dialogs = {
 	"0" : [ "Welcome to boss fights", "'X' - ATTACKS", "'Z' - EVADES", "Good luck, you're  going to need it"],
-	"1" : [ "Beware D Trainer"]
+	"1" : [ "Boss Fight"]
 }
 var page = 0
 

@@ -5,6 +5,7 @@ const ACCELERATION = 5
 
 var velocity  = Vector2.ZERO
 var player = null
+var init_player_pos = null
 
 
 func _ready():
@@ -15,7 +16,9 @@ func launch():
 
 func _physics_process(delta):
 	if player != null:
-		var target = ( player.global_position - self.global_position ).normalized()
+		if init_player_pos == null:
+			init_player_pos = player.global_position 
+		var target = ( init_player_pos - self.global_position ).normalized()
 		velocity = velocity.move_toward(target * MAX_SPEED, ACCELERATION * delta )
 		var hit = move_and_collide(velocity)
 		if hit != null:
