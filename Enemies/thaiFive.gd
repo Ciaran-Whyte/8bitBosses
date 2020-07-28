@@ -1,11 +1,11 @@
 extends KinematicBody2D
 
-const MAX_SPEED = 100
-const ACCELERATION = 5
+const MAX_SPEED = 60
+const ACCELERATION = 4
 
 var velocity  = Vector2.ZERO
 var player = null
-var init_player_pos = null
+var target = null
 
 
 func _ready():
@@ -16,9 +16,8 @@ func launch():
 
 func _physics_process(delta):
 	if player != null:
-		if init_player_pos == null:
-			init_player_pos = player.global_position 
-		var target = ( init_player_pos - self.global_position ).normalized()
+		if target == null:
+			target = ( player.global_position  - self.global_position ).normalized()
 		velocity = velocity.move_toward(target * MAX_SPEED, ACCELERATION * delta )
 		var hit = move_and_collide(velocity)
 		if hit != null:
