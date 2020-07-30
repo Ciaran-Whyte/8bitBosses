@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Clutch_10001110101.wav-da47dd9ac3167983fe03183ac5a94bc2.sample"
+
+[deps]
+
+source_file="res://Music and Sounds/Clutch_10001110101.wav"
+dest_files=[ "res://.import/Clutch_10001110101.wav-da47dd9ac3167983fe03183ac5a94bc2.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

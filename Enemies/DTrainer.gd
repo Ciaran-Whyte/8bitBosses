@@ -58,17 +58,21 @@ func move_state(delta):
 func accelerate_towards_point(point,delta):
 	var direction = global_position.direction_to(point)
 	velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta )
-	if(global_position.distance_to(point) <= SPELL_RANGE):
+	if(global_position.distance_to(point) <= SPELL_RANGE and thai_five_cool_down):
 		state = SPELL
-	
+	elif(global_position.distance_to(point) <= ATTACK_RANGE):
+		state = ATTACK
+	else:
+		state = MOVE
+		
 func spell_state(delta):
-	if time_to_thai_five(playerDetectionZone.player.global_position):
+	if time_to_thai_five():
 		velocity = velocity.move_toward(Vector2.ZERO * FRICTION, ACCELERATION * delta )
 		animationState.travel("Spell")
 	else:
 		state = MOVE
 
-func time_to_thai_five(player_pos):
+func time_to_thai_five():
 	var in_spell_range = global_position.distance_to(playerDetectionZone.player.global_position) < SPELL_RANGE
 	var max_active_thai_fives = Global.level_1_globals['CURRENT_THAI_FIVES'] < Global.level_1_globals['MAX_THAI_FIVES']
 	return in_spell_range and max_active_thai_fives and thai_five_cool_down
@@ -88,6 +92,7 @@ func attack_state(delta):
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO * FRICTION, ACCELERATION * delta )
 		animationState.travel("Attack")
+		
 	
 func idle_state():
 	animationState.travel("Idle")
